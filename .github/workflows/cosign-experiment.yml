@@ -13,5 +13,3 @@ jobs:
         uses: sigstore/cosign-installer@v3.7.0
       - name: Check install!
         run: cosign version
-      - name: Show Help
-        run: cosign --help
