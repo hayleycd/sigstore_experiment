@@ -4,6 +4,9 @@ jobs:
 
     permissions: {}
 
+    on:
+      push:
+        branches: [ main ]
     name: Install Cosign
     steps:
       - name: Install Cosign
