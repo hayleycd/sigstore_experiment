@@ -1,13 +1,13 @@
+name: understanding-ci
+on:
+   push:
+    branches: [ main ]
+permissions: read-all
+
 jobs:
-  example:
-    runs-on: ubuntu-latest
-
-    permissions: {}
-
-    on:
-      push:
-        branches: [ main ]
+  understanding-ci:
     name: Install Cosign
+    runs-on: ubuntu-latest
     steps:
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.7.0
