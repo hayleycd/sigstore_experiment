@@ -1,3 +1,12 @@
+name: understanding-ci
+on:
+    push:
+        branches: [ main ]
+permissions:
+    contents: read
+    packages: write
+    id-token: write # needed for signing the images with GitHub OIDC Token            
+
 jobs:
   build-image:
     runs-on: ubuntu-latest
