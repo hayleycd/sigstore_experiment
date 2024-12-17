@@ -1,0 +1,12 @@
+jobs:
+  example:
+    runs-on: ubuntu-latest
+
+    permissions: {}
+
+    name: Install Cosign
+    steps:
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3.7.0
+      - name: Check install!
+        run: cosign version
