@@ -16,4 +16,4 @@ jobs:
       - name: Import project
         uses: actions/checkout@v3
       - name: Sign Blob
-        run: cosign sign-blob README.md --bundle cosign.bundle
+        run: cosign sign-blob README.md --bundle cosign.bundle --yes
