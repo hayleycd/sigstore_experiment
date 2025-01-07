@@ -13,3 +13,7 @@ jobs:
         uses: sigstore/cosign-installer@v3.7.0
       - name: Check install!
         run: cosign version
+      - name: Import project
+        uses: actions/checkout@v3
+      - name: Sign Blob
+        run: cosign sign-blob README.md --bundle cosign.bundle
