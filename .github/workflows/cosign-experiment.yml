@@ -1,11 +1,11 @@
-name: understanding-ci
+name: install-and-check-cosign
 on:
    push:
     branches: [ main ]
 permissions: read-all
 
 jobs:
-  understanding-ci:
+  install-and-check-cosign:
     name: Install Cosign
     runs-on: ubuntu-latest
     steps:
