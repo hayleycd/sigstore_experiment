@@ -2,7 +2,8 @@ name: install-and-check-cosign
 on:
    push:
     branches: [ main ]
-permissions: read-all
+permissions:
+  id-token: write # needed for signing the images with GitHub OIDC Token
 
 jobs:
   install-and-check-cosign:
@@ -15,5 +16,5 @@ jobs:
         run: cosign version
       - name: Import project
         uses: actions/checkout@v3
-      - name: Sign Blob
+      - name: Sign the images with GitHub OIDC Token
         run: cosign sign-blob README.md --bundle cosign.bundle --yes
