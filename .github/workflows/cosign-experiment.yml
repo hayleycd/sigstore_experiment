@@ -3,7 +3,7 @@ on:
    push:
     branches: [ main ]
 permissions:
-  id-token: write # needed for signing the images with GitHub OIDC Token
+  id-token: write # needed for signing with GitHub OIDC Token
 
 jobs:
   install-and-check-cosign:
@@ -16,5 +16,7 @@ jobs:
         run: cosign version
       - name: Import project
         uses: actions/checkout@v3
-      - name: Sign the images with GitHub OIDC Token
+      - name: Sign blob with GitHub OIDC Token
         run: cosign sign-blob README.md --bundle cosign.bundle --yes
+      - name: Verify blob
+        run: cosign verify-blob README.md --bundle cosign.bundle --certificate-identity=https://github.com/hayleycd/sigstore_experiment/.github/workflows/cosign-experiment.yaml@refs/heads/main --certificate-oidc-issuer=https://token.actions.githubusercontent.com
