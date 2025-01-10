@@ -1,10 +1,10 @@
-name: install-and-check-cosign
+name: verify
 on: workflow_dispatch
 permissions:
   id-token: write # needed for signing with GitHub OIDC Token
 
 jobs:
-  install-and-check-cosign:
+  verify:
     name: Install Cosign
     runs-on: ubuntu-latest
     steps:
