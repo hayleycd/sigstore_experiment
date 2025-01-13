@@ -52,20 +52,6 @@ jobs:
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
 
-      # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
-      # - name: Sign image with a key
-      #   run: |
-      #     images=""
-      #     for tag in ${TAGS}; do
-      #       images+="${tag}@${DIGEST} "
-      #     done
-      #     cosign sign --yes --key env://COSIGN_PRIVATE_KEY ${images}
-      #   env:
-      #     TAGS: ${{ steps.docker_meta.outputs.tags }}
-      #     COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
-      #     COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-      #     DIGEST: ${{ steps.build-and-push.outputs.digest }}
-
       - name: Sign the images with GitHub OIDC Token
         env:
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
@@ -76,3 +62,4 @@ jobs:
             images+="${tag}@${DIGEST} "
           done
           cosign sign --yes ${images}
+          cosign verify $IMAGE --certificate-identity=$IDENTITY --certificate-oidc-issuer=$OIDC_ISSUER
