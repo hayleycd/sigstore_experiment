@@ -52,7 +52,7 @@ jobs:
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
 
-      - name: Sign the images with GitHub OIDC Token
+      - name: Sign and verify the images with GitHub OIDC Token
         env:
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
           TAGS: ${{ steps.docker_meta.outputs.tags }}
@@ -62,4 +62,8 @@ jobs:
             images+="${tag}@${DIGEST} "
           done
           cosign sign --yes ${images}
-          cosign verify ${images} --certificate-identity=https://github.com/hayleycd/sigstore_experiment/.github/workflows/sign-container.yml@refs/heads/main --certificate-oidc-issuer=https://token.actions.githubusercontent.com
+          cosign verify ${images} \
+          --certificate-identity=https://github.com/hayleycd/sigstore_experiment/.github/workflows/sign-container.yml@refs/heads/main \
+          --certificate-oidc-issuer=https://token.actions.githubusercontent.com
+
+         
