@@ -62,4 +62,4 @@ jobs:
             images+="${tag}@${DIGEST} "
           done
           cosign sign --yes ${images}
-          cosign verify ${images} --certificate-identity=$IDENTITY --certificate-oidc-issuer=$OIDC_ISSUER
+          cosign verify ${images} --certificate-identity=https://github.com/hayleycd/sigstore_experiment/.github/workflows/cosign-experiment.yml@refs/heads/main --certificate-oidc-issuer=https://token.actions.githubusercontent.com
