@@ -62,4 +62,4 @@ jobs:
             images+="${tag}@${DIGEST} "
           done
           cosign sign --yes ${images}
-          cosign verify $IMAGE --certificate-identity=$IDENTITY --certificate-oidc-issuer=$OIDC_ISSUER
+          cosign verify ${images} --certificate-identity=$IDENTITY --certificate-oidc-issuer=$OIDC_ISSUER
