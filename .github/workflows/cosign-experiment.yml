@@ -1,25 +1,19 @@
-name: install-and-check-cosign
+name: install-cosign-and-use
 on:
+  # This will trigger the workflow to run when commits are pushed to the main branch.
+  # This is easy for testing purposes, but for your final workflow use whatever event 
+  # or schedule makes sense for your project.
    push:
     branches: [ main ]
-permissions:
-  id-token: write # needed for signing with GitHub OIDC Token
-
 jobs:
-  install-and-check-cosign:
+  install-cosign-and-use:
     name: Install Cosign
     runs-on: ubuntu-latest
+    # No special permissions are required to install cosign, but `id-token: write` is needed to sign with your workflow identity.
+    permissions:
+       id-token: write
     steps:
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.7.0
       - name: Check install!
         run: cosign version
-      - name: Import project
-        uses: actions/checkout@v3
-      - name: Sign blob with GitHub OIDC Token
-        run: cosign sign-blob README.md --bundle cosign.bundle --yes
-      - name: Verify blob
-        run: >
-          cosign verify-blob README.md --bundle cosign.bundle 
-          --certificate-identity=https://github.com/hayleycd/sigstore_experiment/.github/workflows/cosign-experiment.yml@refs/heads/main
-          --certificate-oidc-issuer=https://token.actions.githubusercontent.com
